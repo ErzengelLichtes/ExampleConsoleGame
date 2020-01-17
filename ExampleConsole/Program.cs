@@ -10,6 +10,11 @@ namespace ExampleConsole
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Please enter your character's name:");
+            string playerName = Console.ReadLine();
+
+            Console.Clear();
+
         }
     }
 }
