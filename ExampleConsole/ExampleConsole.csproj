@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\IBlock.cs" />
+    <Compile Include="Entities\IEntity.cs" />
     <Compile Include="Entities\IPositioned.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

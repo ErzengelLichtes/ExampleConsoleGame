@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ExampleConsole
+namespace ExampleConsole.Entities
 {
     public enum Direction
     {
@@ -12,7 +8,7 @@ namespace ExampleConsole
         Vertical
     }
 
-    class Wall : IBlock
+    internal class Wall : IBlock, IEntity
     {
         public Wall(int x, int y
                    , int length, Direction direction
@@ -37,6 +33,8 @@ namespace ExampleConsole
             default:
                 throw new ArgumentOutOfRangeException(nameof(direction), direction, message: null);
             }
+
+            Renderer = RenderFactory.CreateRenderableFor<IBlock>(this);
         }
 
         /// <inheritdoc />
@@ -56,5 +54,8 @@ namespace ExampleConsole
 
         /// <inheritdoc />
         public int Height { get; }
+
+        /// <inheritdoc />
+        public IRender Renderer { get; }
     }
 }
