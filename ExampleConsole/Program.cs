@@ -11,20 +11,30 @@ namespace ExampleConsole
     {
         static void Main(string[] args)
         {
+            
+            Console.WindowHeight = 32;
+            Console.WindowWidth  = 64;
+            Console.BufferHeight = 32;
+            Console.BufferWidth  = 64;
+
             RegisterRenderables();
             Console.WriteLine("Please enter your character's name:");
             string playerName = Console.ReadLine();
+
+
 
             Scene scene = new Scene();
             scene.AddEntity(new Wall(0, 0, 64, Direction.Horizontal, "wall"));
             scene.AddEntity(new Wall(0, 1, 20, Direction.Vertical, "vwall"));
             scene.AddEntity(new Wall(0, 21, 16, Direction.Horizontal, "wall"));
             scene.AddEntity(new Wall(16, 22, 8, Direction.Vertical, "vwall"));
-            scene.AddEntity(new Wall(16, 30, 34, Direction.Horizontal, "wall"));
+            scene.AddEntity(new Wall(16, 30, 48, Direction.Horizontal, "wall"));
+            scene.AddEntity(new Wall(63, 1, 29, Direction.Vertical, "vwall"));
 
             bool active = true;
             while (active)
             {
+                Console.CursorVisible = false;
                 scene.Render();
                 var key = Console.ReadKey(intercept: true);
                 if (key.Key == ConsoleKey.Escape)
