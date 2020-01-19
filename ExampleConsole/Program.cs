@@ -15,8 +15,21 @@ namespace ExampleConsole
             Console.WriteLine("Please enter your character's name:");
             string playerName = Console.ReadLine();
 
-            Console.Clear();
+            Scene scene = new Scene();
+            scene.AddEntity(new Wall(0, 0, 64, Direction.Horizontal, "wall"));
+            scene.AddEntity(new Wall(0, 1, 20, Direction.Vertical, "vwall"));
+            scene.AddEntity(new Wall(0, 21, 16, Direction.Horizontal, "wall"));
+            scene.AddEntity(new Wall(16, 22, 8, Direction.Vertical, "vwall"));
+            scene.AddEntity(new Wall(16, 30, 34, Direction.Horizontal, "wall"));
 
+            bool active = true;
+            while (active)
+            {
+                scene.Render();
+                var key = Console.ReadKey(intercept: true);
+                if (key.Key == ConsoleKey.Escape)
+                    active = false;
+            }
         }
 
         private static void RegisterRenderables()
@@ -43,10 +56,10 @@ namespace ExampleConsole
         public void Render()
         {
             var c = Program.LookupEntityDisplay(_entity.Display);
-            foreach (var y in Enumerable.Range(_entity.Y, _entity.Y + _entity.Height))
+            foreach (var y in Enumerable.Range(_entity.Y, _entity.Height))
             {
                 Console.CursorTop = y;
-                foreach (var x in Enumerable.Range(_entity.X, _entity.X + _entity.Width))
+                foreach (var x in Enumerable.Range(_entity.X, _entity.Width))
                 {
                     Console.CursorLeft = x;
                     Console.Write(c);

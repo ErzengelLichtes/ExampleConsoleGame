@@ -10,6 +10,16 @@ namespace ExampleConsole
     class Scene
     {
         private List<IEntity> _entities = new List<IEntity>();
-        
+
+        public void Render()
+        {
+            Console.Clear();
+            foreach (IRender render in _entities.Select(ent=>ent.Renderer))
+            {
+                render.Render();
+            }
+        }
+
+        public void AddEntity(IEntity entity) => _entities.Add(entity ?? throw new ArgumentNullException(nameof(entity)));
     }
 }
