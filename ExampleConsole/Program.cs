@@ -24,13 +24,13 @@ namespace ExampleConsole
             RenderFactory.RegisterFactory<IBlock>(entity=>new BlockRender(entity));
         }
 
-        static Dictionary<string, char> entityDisplayLookup = new Dictionary<string, char>()
-                                                              {
-                                                                  ["player"] = 'p',
-                                                                  ["wall"] = '=',
-                                                                  ["vwall"] = '|',
-                                                              };
-        public static char EntityDisplayLookup(string key) { return entityDisplayLookup.TryGetValue(key, out var retval) ? retval : 'x'; }
+        static readonly Dictionary<string, char> EntityDisplayLookup = new Dictionary<string, char>()
+                                                                       {
+                                                                           ["player"] = 'p',
+                                                                           ["wall"] = '=',
+                                                                           ["vwall"] = '|',
+                                                                       };
+        public static char LookupEntityDisplay(string key) => EntityDisplayLookup.TryGetValue(key, out var retval) ? retval : 'x';
     }
 
     internal class BlockRender : IRender
@@ -41,7 +41,7 @@ namespace ExampleConsole
         /// <inheritdoc />
         public void Render()
         {
-            var c = Program.EntityDisplayLookup(_entity.Display);
+            var c = Program.LookupEntityDisplay(_entity.Display);
             foreach (var y in Enumerable.Range(_entity.Y, _entity.Y + _entity.Height))
             {
                 Console.CursorTop = y;
@@ -65,7 +65,7 @@ namespace ExampleConsole
         {
             Console.CursorTop  = _positioned.Y;
             Console.CursorLeft = _positioned.X;
-            var c = Program.EntityDisplayLookup(_positioned.Display);
+            var c = Program.LookupEntityDisplay(_positioned.Display);
             Console.Write(c);
         }
     }
