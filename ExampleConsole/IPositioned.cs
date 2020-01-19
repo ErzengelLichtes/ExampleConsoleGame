@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ExampleConsole
 {
-    interface IEntity
+    interface IPositioned
     {
         int X { get; }
         int Y { get; }

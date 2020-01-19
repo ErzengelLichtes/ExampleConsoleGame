@@ -44,7 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IBlock.cs" />
-    <Compile Include="IEntity.cs" />
+    <Compile Include="IPositioned.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RenderFactory.cs" />

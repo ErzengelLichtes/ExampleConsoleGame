@@ -8,7 +8,7 @@ namespace ExampleConsole
 {
     class Scene
     {
-        private List<IEntity> _entities = new List<IEntity>();
+        private List<IPositioned> _entities = new List<IPositioned>();
         
     }
 }

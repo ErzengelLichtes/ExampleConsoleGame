@@ -20,7 +20,7 @@ namespace ExampleConsole
 
         private static void RegisterRenderables()
         {
-            RenderFactory.RegisterFactory<IEntity>(entity=>new EntityRender(entity));
+            RenderFactory.RegisterFactory<IPositioned>(entity=>new EntityRender(entity));
             RenderFactory.RegisterFactory<IBlock>(entity=>new BlockRender(entity));
         }
 
@@ -56,16 +56,16 @@ namespace ExampleConsole
 
     internal class EntityRender : IRender
     {
-        private readonly IEntity _entity;
+        private readonly IPositioned _positioned;
 
-        public EntityRender(IEntity entity) { _entity = entity; }
+        public EntityRender(IPositioned positioned) { _positioned = positioned; }
 
         /// <inheritdoc />
         public void Render()
         {
-            Console.CursorTop  = _entity.Y;
-            Console.CursorLeft = _entity.X;
-            var c = Program.EntityDisplayLookup(_entity.Display);
+            Console.CursorTop  = _positioned.Y;
+            Console.CursorLeft = _positioned.X;
+            var c = Program.EntityDisplayLookup(_positioned.Display);
             Console.Write(c);
         }
     }

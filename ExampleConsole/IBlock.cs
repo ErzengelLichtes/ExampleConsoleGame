@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ExampleConsole
 {
-    interface IBlock : IEntity
+    interface IBlock : IPositioned
     {
         int Width { get; }
         int Height { get; }
