@@ -8,5 +8,7 @@ namespace ExampleConsole
 {
     interface IBlock : IEntity
     {
+        int Width { get; }
+        int Height { get; }
     }
 }
