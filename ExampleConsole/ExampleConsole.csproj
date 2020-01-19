@@ -43,16 +43,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IBlock.cs" />
-    <Compile Include="IPositioned.cs" />
+    <Compile Include="Entities\IBlock.cs" />
+    <Compile Include="Entities\IPositioned.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RenderFactory.cs" />
     <Compile Include="Scene.cs" />
-    <Compile Include="Wall.cs" />
+    <Compile Include="Entities\Wall.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
