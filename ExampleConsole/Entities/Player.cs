@@ -12,7 +12,7 @@ namespace ExampleConsole.Entities
         {
             X = x;
             Y = y;
-            Renderer = RenderFactory.CreateRenderableFor<IEntity>(this);
+            Renderer = RenderFactory.CreateRenderableFor<IPositioned>(this);
         }
 
         /// <inheritdoc />
