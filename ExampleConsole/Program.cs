@@ -49,9 +49,15 @@ namespace ExampleConsole
                                                                     [Direction.Vertical] = "vwall",
                                                                     [Direction.Horizontal] = "wall",
                                                                 };
-        private static void AddWall(int x, int y, int length
-                                   , Direction direction
-        ) { _scene.AddEntity(new Wall(x, y, length, direction, _wallDisplayFromDirection[direction])); }
+
+        private static void AddWall(int       x
+                                  , int       y
+                                  , int       length
+                                  , Direction direction
+        )
+        {
+            _scene.AddEntity(new Wall(x, y, length, direction, _wallDisplayFromDirection[direction]));
+        }
 
         private static void AddPlayer(int x, int y)
         {
