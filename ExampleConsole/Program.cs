@@ -24,26 +24,59 @@ namespace ExampleConsole
 
 
 
-            Scene scene = new Scene();
-            scene.AddEntity(new Wall(0, 0, 64, Direction.Horizontal, "wall"));
-            scene.AddEntity(new Wall(0, 1, 20, Direction.Vertical, "vwall"));
-            scene.AddEntity(new Wall(0, 21, 16, Direction.Horizontal, "wall"));
-            scene.AddEntity(new Wall(16, 22, 8, Direction.Vertical, "vwall"));
-            scene.AddEntity(new Wall(16, 30, 48, Direction.Horizontal, "wall"));
-            scene.AddEntity(new Wall(63, 1, 29, Direction.Vertical, "vwall"));
-            scene.AddEntity(new Player(6, 6));
+            _scene = new Scene();
+            AddWall(0, 0, 64, Direction.Horizontal);
+            AddWall(0,1,20,Direction.Vertical);
+            AddWall(0,21,16,Direction.Horizontal);
+            AddWall(16,22,8,Direction.Vertical);
+            AddWall(16,30,48,Direction.Horizontal);
+            AddWall(63,1,29,Direction.Vertical);
 
-            bool active = true;
-            while (active)
+            AddPlayer(6, 6);
+
+            while (_active)
             {
                 Console.CursorVisible = false;
-                scene.Render();
+                _scene.Render();
                 Console.CursorLeft = 32 - (playerName.Length / 2);
                 Console.CursorTop = Console.BufferHeight - 1;
                 Console.Write(playerName);
-                var key = Console.ReadKey(intercept: true);
-                if (key.Key == ConsoleKey.Escape)
-                    active = false;
+                ProcessInput();
+            }
+        }
+        static Dictionary<Direction, string> _wallDisplayFromDirection = new Dictionary<Direction, string>()
+                                                                {
+                                                                    [Direction.Vertical] = "vwall",
+                                                                    [Direction.Horizontal] = "wall",
+                                                                };
+        private static void AddWall(int x, int y, int length
+                                   , Direction direction
+        ) { _scene.AddEntity(new Wall(x, y, length, direction, _wallDisplayFromDirection[direction])); }
+
+        private static void AddPlayer(int x, int y)
+        {
+            var player = new Player(x, y);
+            _scene.AddEntity(player);
+            _scene.AddUpdater(player);
+        }
+
+        static Dictionary<ConsoleKey, string> keyMap = new Dictionary<ConsoleKey, string>()
+                                                       {
+                                                           [ConsoleKey.UpArrow   ] = "up",
+                                                           [ConsoleKey.DownArrow ] = "down",
+                                                           [ConsoleKey.LeftArrow ] = "left",
+                                                           [ConsoleKey.RightArrow] = "right",
+                                                       };
+
+        static void ProcessInput()
+        {
+            var keyInfo = Console.ReadKey(intercept: true);
+            ConsoleKey key = keyInfo.Key;
+            if (key == ConsoleKey.Escape)
+                _active = false;
+            if (keyMap.TryGetValue(key, out var message))
+            {
+                _scene.ExecuteMessage(message);
             }
         }
 
@@ -59,6 +92,9 @@ namespace ExampleConsole
                                                                            ["wall"] = '=',
                                                                            ["vwall"] = '|',
                                                                        };
+
+        private static bool _active = true;
+        private static Scene _scene;
         public static char LookupEntityDisplay(string key) => EntityDisplayLookup.TryGetValue(key, out var retval) ? retval : 'x';
     }
 
